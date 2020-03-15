@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="col-3 p-5">
-            <img src="/img/cong.jpg" class="w-100 rounded-circle">
+            <img src="/img/{{$user->profile->image}}" class="w-100 rounded-circle">
         </div>
         <div class="col-9 p-5">
             <div class="d-flex align-items-center pb-4">
@@ -17,8 +17,8 @@
             </div>
 
             <div class="pt-4 font-weight-bold">{{$user->name}}</div>
-            <div>This is description gago!</div>
-            <div><a href="">thecongtv.com</a></div>
+            <div>{{$user->profile->description}}</div>
+            <div><a href="">{{$user->profile->url}}</a></div>
         </div>
     </div>
     
