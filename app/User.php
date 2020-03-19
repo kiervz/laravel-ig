@@ -47,6 +47,16 @@ class User extends Authenticatable
             ]);
         });
     }        
+ 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class)->orderBy('created_at', 'DESC');
+    }
+    
+    public function posts()
+    {
+        return $this->hasMany(Post::class)->orderBy('created_at', 'DESC');
+    }
 
     public function profile()
     {

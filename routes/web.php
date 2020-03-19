@@ -19,4 +19,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/profile/{username}', 'ProfilesController@show')->name('profile');
+Route::resource('post', 'PostController');
+Route::get('/profile/{username}', 'ProfileController@index')->name('profile.index');
+Route::get('/profile/{user}/edit', 'ProfileController@edit')->name('profile.edit');
+Route::put('/profile/{user}', 'ProfileController@update')->name('profile.update');
+
+Route::post('comment/{post_id}', 'CommentController@store')->name('comment.store');
