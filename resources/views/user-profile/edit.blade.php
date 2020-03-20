@@ -39,10 +39,10 @@
             </div>
 
             <div class="form-group row">
-                <label for="url">Profile Image</label>
+                <label for="Profile Image">Profile Image</label>
                 <input type="file" id="image" name="image" class="form-control-file">
 
-                @error('url')
+                @error('image')
                     <strong>{{ $message }}</strong>
                 @enderror
             </div>  

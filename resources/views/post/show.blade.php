@@ -12,17 +12,19 @@
                     <div class="col-4">
                         <div class="card-header bg-white">
                             <a class="navbar-brand d-flex align-items-baseline" href="{{ route('profile.index', $post->user->username) }}" style="color:black">
-                                <div><img src="/storage/{{ $post->user->profile->image }}" style="height: 30px;" class="rounded-circle"></div>
+                                <div><img src="{{ $post->user->profile->profileImage() }}" style="height: 30px;" class="rounded-circle"></div>
                                 <div class="pl-3">{{ $post->user->username }}</div>
                             </a>
                         </div>
 
                         <div class="card-body" style="height:420px; overflow-y: auto;">
                             {{-- post caption --}}
-                            <div class="media mb-1" style="border-bottom:1px solid #DFDFDF">
-                                <img class="d-flex mr-3 rounded-circle" src="/storage/{{ $post->user->profile->image }}" style="height: 30px;" alt="">
+                            <div class="media mb-1" style="border-bottom:1px solid #DFDFDF;">
+                                <a href="{{ route('profile.index', $post->user->username) }}">
+                                    <img class="d-flex mr-3 rounded-circle" src="{{ $post->user->profile->profileImage() }}" style="height: 30px;" alt="">
+                                </a>
                                 <div class="media-body">
-                                    <p><b><span class="text-lowercase">{{ $post->user->username }}</span></b>
+                                    <p><a href="{{ route('profile.index', $post->user->username) }}" style="text-decoration:none;color:black"><b><span class="text-lowercase">{{ $post->user->username }}</span></b></a>
                                         {{ $post->caption }}
                                         <br>
                                         <small class="text-muted">{{ date('M d, Y', strtotime($post->created_at)) }}</small>
@@ -51,7 +53,7 @@
                             <h3><a href=""><i class="far fa-heart mr-2  "></i></a></h3>
                             <h3><a href=""><i class="far fa-comment mr-2"></i></i></a></h3>
                             <h3><a href=""><i class="far fa-paper-plane"></i></a></h3>
-                            <p class="small m-0 ml-3"><b>26,584 likes</b> <br> MARCH 8</p>
+                            <p class="small m-0 ml-3"><b>26,584 likes</b> <br> {{ date('F d', strtotime($post->created_at)) }}</p>
                         </div>
                         <div class="card-footer bg-white">
                             <form action="{{ route('comment.store', $post->id) }}" method="POST">

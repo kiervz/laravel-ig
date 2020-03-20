@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Post;
 use App\Profile;
 use Intervention\Image\Facades\Image;
 
@@ -17,8 +18,12 @@ class ProfileController extends Controller
     public function index($username)
     {
         $user = User::where("username", $username)->firstOrFail();
+            
+        $follows = (auth()->user()) ? auth()->user()->following->contains($user->id) : false;
         
-        return view('user-profile.profile')->with('user', $user);
+        $posts = Post::Where('user_id', $user->id)->latest()->paginate(9);
+
+        return view('user-profile.profile', compact('user', 'posts', 'follows'));
     }
 
     public function show($username)
@@ -42,7 +47,7 @@ class ProfileController extends Controller
         
         if (request('image')) 
         {
-            $destinationPath = request()->file('image')->store('post', 'public');
+            $destinationPath = request()->file('image')->store('profile', 'public');
             $image = Image::make(public_path("storage/{$destinationPath}"))->fit(1200,1200);
             $image->save();
             $imageArray = ['image' => $destinationPath];
